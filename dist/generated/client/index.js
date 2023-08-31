@@ -186,7 +186,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Documents\\dev\\POS_react\\POS-Backend\\generated\\client",
+      "value": "D:\\Documents\\dev\\POS_react\\POS-Backend\\dist\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -207,10 +207,10 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
-  "relativePath": "../../prisma",
+  "relativePath": "../../../prisma",
   "clientVersion": "5.1.1",
   "engineVersion": "6a3747c37ff169c90047725a05a6ef02e32ac97e",
   "datasourceNames": [
@@ -226,8 +226,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
+    "dist/generated/client",
     "generated/client",
-    "client",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -257,9 +257,9 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/client/query_engine-windows.dll.node")
+path.join(process.cwd(), "dist/generated/client/query_engine-windows.dll.node")
 
 path.join(__dirname, "libquery_engine-debian-openssl-1.0.x.so.node");
-path.join(process.cwd(), "generated/client/libquery_engine-debian-openssl-1.0.x.so.node")
+path.join(process.cwd(), "dist/generated/client/libquery_engine-debian-openssl-1.0.x.so.node")
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "generated/client/schema.prisma")
+path.join(process.cwd(), "dist/generated/client/schema.prisma")

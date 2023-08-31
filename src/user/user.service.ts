@@ -1,5 +1,5 @@
 import { db } from "../utils/db.server.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import {
   generateAccessToken,

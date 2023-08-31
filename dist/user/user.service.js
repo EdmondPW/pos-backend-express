@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.refreshTokenUser = exports.loginUser = exports.deleteUser = exports.updateUserPassword = exports.updateUser = exports.createUser = exports.getOneUserByName = exports.getOneUserById = exports.getAllUsers = void 0;
 const db_server_js_1 = require("../utils/db.server.js");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jwt_auth_js_1 = require("../utils/jwt.auth.js");
 const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     return db_server_js_1.db.user.findMany({
@@ -149,7 +149,7 @@ const loginUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
         loginResponse.message = "User not found";
         return loginResponse;
     }
-    const verifyPassword = yield bcrypt_1.default.compare(user.password, findUser.password);
+    const verifyPassword = yield bcryptjs_1.default.compare(user.password, findUser.password);
     if (verifyPassword == false) {
         loginResponse.status = false;
         loginResponse.message = "Password not correct";

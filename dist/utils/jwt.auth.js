@@ -14,18 +14,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyTokenAuth = exports.generateRefreshToken = exports.generateAccessToken = exports.comparePasswords = exports.hashPassword = void 0;
 // utils/auth.ts
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const saltRounds = 10;
 const accessTokenSecret = process.env.ACCESS_SECRET_TOKEN;
 const refreshTokenSecret = process.env.REFRESH_SECRET_TOKEN;
 const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
-    const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
+    const hashedPassword = yield bcryptjs_1.default.hash(password, saltRounds);
     return hashedPassword;
 });
 exports.hashPassword = hashPassword;
 const comparePasswords = (password, hashedPassword) => __awaiter(void 0, void 0, void 0, function* () {
-    const match = yield bcrypt_1.default.compare(password, hashedPassword);
+    const match = yield bcryptjs_1.default.compare(password, hashedPassword);
     return match;
 });
 exports.comparePasswords = comparePasswords;
