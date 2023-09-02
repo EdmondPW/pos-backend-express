@@ -1,18 +1,6 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteItemTransaction = exports.updateItemTransaction = exports.createItemTransaction = exports.getOneItemTransactionByTransactionId = exports.getOneItemTransactionById = exports.getAllItemTransactionAfterLastLoginDate = exports.getAllItemTransaction = void 0;
-const db_server_js_1 = require("../utils/db.server.js");
-const getAllItemTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield db_server_js_1.db.item_transaction.findMany({
+import { db } from "../utils/db.server.js";
+export const getAllItemTransaction = async () => {
+    return await db.item_transaction.findMany({
         select: {
             id: true,
             quantity: true,
@@ -59,10 +47,9 @@ const getAllItemTransaction = () => __awaiter(void 0, void 0, void 0, function* 
             },
         },
     });
-});
-exports.getAllItemTransaction = getAllItemTransaction;
-const getAllItemTransactionAfterLastLoginDate = (lastLogin, id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield db_server_js_1.db.item_transaction.findMany({
+};
+export const getAllItemTransactionAfterLastLoginDate = async (lastLogin, id) => {
+    return await db.item_transaction.findMany({
         where: {
             OR: [
                 {
@@ -126,10 +113,9 @@ const getAllItemTransactionAfterLastLoginDate = (lastLogin, id) => __awaiter(voi
             },
         },
     });
-});
-exports.getAllItemTransactionAfterLastLoginDate = getAllItemTransactionAfterLastLoginDate;
-const getOneItemTransactionById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const searchResult = yield db_server_js_1.db.item_transaction.findFirst({
+};
+export const getOneItemTransactionById = async (id) => {
+    const searchResult = await db.item_transaction.findFirst({
         where: {
             id: id,
         },
@@ -180,10 +166,9 @@ const getOneItemTransactionById = (id) => __awaiter(void 0, void 0, void 0, func
         },
     });
     return searchResult;
-});
-exports.getOneItemTransactionById = getOneItemTransactionById;
-const getOneItemTransactionByTransactionId = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const searchResult = yield db_server_js_1.db.item_transaction.findMany({
+};
+export const getOneItemTransactionByTransactionId = async (id) => {
+    const searchResult = await db.item_transaction.findMany({
         where: {
             sales_transaction_id: id,
         },
@@ -234,11 +219,10 @@ const getOneItemTransactionByTransactionId = (id) => __awaiter(void 0, void 0, v
         },
     });
     return searchResult;
-});
-exports.getOneItemTransactionByTransactionId = getOneItemTransactionByTransactionId;
-const createItemTransaction = (item_transaction) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const createItemTransaction = async (item_transaction) => {
     const { quantity, product_id, sales_transaction_id } = item_transaction;
-    return yield db_server_js_1.db.item_transaction.create({
+    return await db.item_transaction.create({
         data: {
             quantity,
             product_id,
@@ -296,11 +280,10 @@ const createItemTransaction = (item_transaction) => __awaiter(void 0, void 0, vo
             },
         },
     });
-});
-exports.createItemTransaction = createItemTransaction;
-const updateItemTransaction = (item_transaction, id) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const updateItemTransaction = async (item_transaction, id) => {
     const { quantity, product_id, sales_transaction_id } = item_transaction;
-    return yield db_server_js_1.db.item_transaction.update({
+    return await db.item_transaction.update({
         where: {
             id: id,
         },
@@ -355,14 +338,12 @@ const updateItemTransaction = (item_transaction, id) => __awaiter(void 0, void 0
             },
         },
     });
-});
-exports.updateItemTransaction = updateItemTransaction;
-const deleteItemTransaction = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield db_server_js_1.db.item_transaction.delete({
+};
+export const deleteItemTransaction = async (id) => {
+    await db.item_transaction.delete({
         where: {
             id: id,
         },
     });
-});
-exports.deleteItemTransaction = deleteItemTransaction;
+};
 //# sourceMappingURL=item_transaction.service.js.map

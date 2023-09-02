@@ -1,18 +1,6 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSalesTransaction = exports.updateSalesTransaction = exports.createSalesTransaction = exports.getOneSalesTransactionByUserId = exports.getOneSalesTransactionById = exports.getAllSalesTransactionAfterLastLoginDate = exports.getCountOfThisMonthTransaction = exports.getAllSalesTransaction = void 0;
-const db_server_js_1 = require("../utils/db.server.js");
-const getAllSalesTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield db_server_js_1.db.sales_transaction.findMany({
+import { db } from "../utils/db.server.js";
+export const getAllSalesTransaction = async () => {
+    return await db.sales_transaction.findMany({
         select: {
             id: true,
             sales_transaction_number: true,
@@ -43,9 +31,8 @@ const getAllSalesTransaction = () => __awaiter(void 0, void 0, void 0, function*
             },
         },
     });
-});
-exports.getAllSalesTransaction = getAllSalesTransaction;
-const getCountOfThisMonthTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const getCountOfThisMonthTransaction = async () => {
     console.log("try one");
     const currentTime = new Date();
     const minusSeven = 7 * 60 * 60 * 1000;
@@ -55,22 +42,21 @@ const getCountOfThisMonthTransaction = () => __awaiter(void 0, void 0, void 0, f
         .padStart(2, "0")}`;
     const currentMonth = new Date(yearMonth);
     console.log(currentMonth);
-    return yield db_server_js_1.db.sales_transaction.count({
+    return await db.sales_transaction.count({
         where: {
             createdAt: {
                 gt: currentMonth,
             },
         },
     });
-});
-exports.getCountOfThisMonthTransaction = getCountOfThisMonthTransaction;
-const getAllSalesTransactionAfterLastLoginDate = (lastLogin, id) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const getAllSalesTransactionAfterLastLoginDate = async (lastLogin, id) => {
     console.log(`test1`);
     const minusSeven = 7 * 60 * 60 * 1000;
     const originalLastLogin = new Date(lastLogin.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
     const localTimeLastLogin = new Date(originalLastLogin.getTime() - minusSeven);
     // const tempData: SalesTransactionRead[] = [];
-    return yield db_server_js_1.db.sales_transaction.findMany({
+    return await db.sales_transaction.findMany({
         where: {
             user_id: id,
             createdAt: {
@@ -108,10 +94,9 @@ const getAllSalesTransactionAfterLastLoginDate = (lastLogin, id) => __awaiter(vo
             },
         },
     });
-});
-exports.getAllSalesTransactionAfterLastLoginDate = getAllSalesTransactionAfterLastLoginDate;
-const getOneSalesTransactionById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const searchResult = yield db_server_js_1.db.sales_transaction.findFirst({
+};
+export const getOneSalesTransactionById = async (id) => {
+    const searchResult = await db.sales_transaction.findFirst({
         where: {
             id: id,
         },
@@ -167,10 +152,9 @@ const getOneSalesTransactionById = (id) => __awaiter(void 0, void 0, void 0, fun
         },
     });
     return searchResult;
-});
-exports.getOneSalesTransactionById = getOneSalesTransactionById;
-const getOneSalesTransactionByUserId = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const searchResult = yield db_server_js_1.db.sales_transaction.findMany({
+};
+export const getOneSalesTransactionByUserId = async (id) => {
+    const searchResult = await db.sales_transaction.findMany({
         where: {
             user_id: id,
         },
@@ -226,11 +210,10 @@ const getOneSalesTransactionByUserId = (id) => __awaiter(void 0, void 0, void 0,
         },
     });
     return searchResult;
-});
-exports.getOneSalesTransactionByUserId = getOneSalesTransactionByUserId;
-const createSalesTransaction = (sales_transaction) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const createSalesTransaction = async (sales_transaction) => {
     const { sales_transaction_number, sales_transaction_status, total_price, total_discount, total_paid_cash, total_paid_debit, total_paid_credit, total_paid_transfer, total_paid_ojol, total_nett, cash_back, user_id, customer_type_id, } = sales_transaction;
-    return yield db_server_js_1.db.sales_transaction.create({
+    return await db.sales_transaction.create({
         data: {
             sales_transaction_number: sales_transaction_number,
             sales_transaction_status: sales_transaction_status,
@@ -276,11 +259,10 @@ const createSalesTransaction = (sales_transaction) => __awaiter(void 0, void 0, 
             },
         },
     });
-});
-exports.createSalesTransaction = createSalesTransaction;
-const updateSalesTransaction = (sales_transaction, id) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const updateSalesTransaction = async (sales_transaction, id) => {
     const { sales_transaction_number, sales_transaction_status, total_price, total_discount, total_paid_cash, total_paid_debit, total_paid_credit, total_paid_transfer, total_paid_ojol, total_nett, cash_back, user_id, customer_type_id, } = sales_transaction;
-    return yield db_server_js_1.db.sales_transaction.update({
+    return await db.sales_transaction.update({
         where: {
             id: id,
         },
@@ -329,14 +311,12 @@ const updateSalesTransaction = (sales_transaction, id) => __awaiter(void 0, void
             },
         },
     });
-});
-exports.updateSalesTransaction = updateSalesTransaction;
-const deleteSalesTransaction = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield db_server_js_1.db.sales_transaction.delete({
+};
+export const deleteSalesTransaction = async (id) => {
+    await db.sales_transaction.delete({
         where: {
             id: id,
         },
     });
-});
-exports.deleteSalesTransaction = deleteSalesTransaction;
+};
 //# sourceMappingURL=sales_transaction.service.js.map
