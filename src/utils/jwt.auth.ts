@@ -1,6 +1,7 @@
 // utils/auth.ts
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 
 type User = {
   id: number;
@@ -8,6 +9,8 @@ type User = {
   user_code: string;
   role: string;
 };
+
+dotenv.config();
 
 const saltRounds = 10;
 const accessTokenSecret = process.env.ACCESS_SECRET_TOKEN as string;

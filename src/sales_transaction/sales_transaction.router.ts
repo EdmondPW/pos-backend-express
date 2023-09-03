@@ -64,7 +64,6 @@ salesTransactionRouter.get(
 salesTransactionRouter.post(
   "/count",
   async (request: Request, response: Response) => {
-    console.log("get sales count this month");
     try {
       const count =
         await SalesTransactionService.getCountOfThisMonthTransaction();
@@ -122,6 +121,7 @@ salesTransactionRouter.post(
   body("user_id").isInt(),
   body("customer_type_id").isInt(),
   async (request: Request, response: Response) => {
+    console.log(request.body);
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
       return response

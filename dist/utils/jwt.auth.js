@@ -1,6 +1,8 @@
 // utils/auth.ts
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
+dotenv.config();
 const saltRounds = 10;
 const accessTokenSecret = process.env.ACCESS_SECRET_TOKEN;
 const refreshTokenSecret = process.env.REFRESH_SECRET_TOKEN;

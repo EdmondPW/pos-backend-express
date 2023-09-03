@@ -43,7 +43,6 @@ salesTransactionRouter.get("/by-user-id/:user_id", authenticateUser, async (requ
     }
 });
 salesTransactionRouter.post("/count", async (request, response) => {
-    console.log("get sales count this month");
     try {
         const count = await SalesTransactionService.getCountOfThisMonthTransaction();
         if (count) {
@@ -74,6 +73,7 @@ salesTransactionRouter.post("/last-login/:user_id", authenticateUser, body("last
     }
 });
 salesTransactionRouter.post("/", authenticateUser, body("sales_transaction_number").isString(), body("sales_transaction_status").isString(), body("total_price").isInt(), body("total_discount").isInt(), body("total_paid_cash").isInt(), body("total_paid_debit").isInt(), body("total_paid_credit").isInt(), body("total_paid_transfer").isInt(), body("total_paid_ojol").isInt(), body("total_nett").isInt(), body("cash_back").isInt(), body("user_id").isInt(), body("customer_type_id").isInt(), async (request, response) => {
+    console.log(request.body);
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
         return response

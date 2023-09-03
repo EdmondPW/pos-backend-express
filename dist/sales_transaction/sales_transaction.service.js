@@ -33,7 +33,6 @@ export const getAllSalesTransaction = async () => {
     });
 };
 export const getCountOfThisMonthTransaction = async () => {
-    console.log("try one");
     const currentTime = new Date();
     const minusSeven = 7 * 60 * 60 * 1000;
     const currentLocalDate = new Date(currentTime.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
@@ -41,7 +40,6 @@ export const getCountOfThisMonthTransaction = async () => {
         .toString()
         .padStart(2, "0")}`;
     const currentMonth = new Date(yearMonth);
-    console.log(currentMonth);
     return await db.sales_transaction.count({
         where: {
             createdAt: {
@@ -51,7 +49,6 @@ export const getCountOfThisMonthTransaction = async () => {
     });
 };
 export const getAllSalesTransactionAfterLastLoginDate = async (lastLogin, id) => {
-    console.log(`test1`);
     const minusSeven = 7 * 60 * 60 * 1000;
     const originalLastLogin = new Date(lastLogin.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
     const localTimeLastLogin = new Date(originalLastLogin.getTime() - minusSeven);
@@ -267,19 +264,19 @@ export const updateSalesTransaction = async (sales_transaction, id) => {
             id: id,
         },
         data: {
-            sales_transaction_number,
-            sales_transaction_status,
-            total_price,
-            total_discount,
-            total_paid_cash,
-            total_paid_debit,
+            sales_transaction_number: sales_transaction_number,
+            sales_transaction_status: sales_transaction_status,
+            total_price: total_price,
+            total_discount: total_discount,
+            total_paid_cash: total_paid_cash,
+            total_paid_debit: total_paid_debit,
             total_paid_credit: total_paid_credit,
-            total_paid_transfer,
-            total_paid_ojol,
-            total_nett,
-            cash_back,
-            user_id,
-            customer_type_id,
+            total_paid_transfer: total_paid_transfer,
+            total_paid_ojol: total_paid_ojol,
+            total_nett: total_nett,
+            cash_back: cash_back,
+            user_id: user_id,
+            customer_type_id: customer_type_id,
         },
         select: {
             id: true,
